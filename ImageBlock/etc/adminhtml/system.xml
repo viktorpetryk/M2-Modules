@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="petryk" translate="label" sortOrder="10">
+            <label>Petryk</label>
+        </tab>
+        <section id="image_block" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Image Block</label>
+            <tab>petryk</tab>
+            <resource>Petryk_ImageBlock::image_block_configuration</resource>
+            <group id="configuration" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Image Block Configuration</label>
+                <field id="image_url" translate="label" type="image" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Upload Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">imageblock</upload_dir>
+                    <base_url type="media" scope_info="1">imageblock</base_url>
+                </field>
+                <field id="image_width" translate="label comment" type="text" sortOrder="2" showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0">
+                    <label>Image Width</label>
+                    <comment>Please, enter only numbers without units.</comment>
+                    <validate>required-entry validate-zero-or-greater validate-digits</validate>
+                </field>
+                <field id="image_height" translate="label comment" type="text" sortOrder="3" showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0">
+                    <label>Image Height</label>
+                    <comment>Please, enter only numbers without units.</comment>
+                    <validate>required-entry validate-zero-or-greater validate-digits</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

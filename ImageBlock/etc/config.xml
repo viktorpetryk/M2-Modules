@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <image_block>
+            <configuration>
+                <image_width>150</image_width>
+                <image_height>150</image_height>
+            </configuration>
+        </image_block>
+    </default>
+</config>

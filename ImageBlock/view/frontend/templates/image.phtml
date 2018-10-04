@@ -1,0 +1,7 @@
+<?php if ($block->isImageUpload()) : ?>
+    <div class="image-block">
+        <a href="<?= $block->getImageUrl(); ?>" title="Image Block" target="_blank">
+            <img src="<?= $block->getResizedImageUrl(); ?>" alt="Image Block">
+        </a>
+    </div>
+<?php endif; ?>

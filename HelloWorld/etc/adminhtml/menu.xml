@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Petryk_HelloWorld::hello" title="Hello World" module="Petryk_HelloWorld" sortOrder="50"
+             resource="Petryk_HelloWorld::hello"/>
+        <add id="Petryk_HelloWorld::hello_manage_items" title="Manage Items" module="Petryk_HelloWorld" sortOrder="50"
+             parent="Petryk_HelloWorld::hello" action="helloworld/index/index"
+             resource="Petryk_HelloWorld::hello_manage_items"/>
+        <add id="Petryk_HelloWorld::hello_configuration" title="Configuration" module="Petryk_HelloWorld" sortOrder="50"
+             parent="Petryk_HelloWorld::hello" action="adminhtml/system_config/edit/section/hello"
+             resource="Petryk_HelloWorld::hello_configuration"/>
+    </menu>
+</config>
