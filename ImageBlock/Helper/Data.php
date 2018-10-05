@@ -46,6 +46,33 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Return Upload directory path
+     *
+     * @return string
+     */
+    public function getUploadDirectoryPath()
+    {
+        $mediaPath = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA);
+        $uploadDirectoryPath = $mediaPath->getAbsolutePath($this->uploadDirectory) . DIRECTORY_SEPARATOR;
+
+        return $uploadDirectoryPath;
+    }
+
+    /**
+     * Return Upload directory url
+     *
+     * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getUploadDirectoryUrl()
+    {
+        $mediaUrl = $this->_storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
+        $uploadDirectoryUrl = $mediaUrl . $this->uploadDirectory;
+
+        return $uploadDirectoryUrl;
+    }
+
+    /**
      * Return image url from config
      *
      * @return mixed
@@ -84,7 +111,7 @@ class Data extends AbstractHelper
     public function getImageUrl()
     {
         $imageUrlFromConfig = $this->getImageUrlFromConfig();
-        $imageUrl = $this->_storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . $this->uploadDirectory . DIRECTORY_SEPARATOR . $imageUrlFromConfig;
+        $imageUrl = $this->getUploadDirectoryUrl() . DIRECTORY_SEPARATOR . $imageUrlFromConfig;
 
         return $imageUrl;
     }
@@ -93,6 +120,7 @@ class Data extends AbstractHelper
      * Return resized image url
      *
      * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getResizedImageUrl()
     {
@@ -114,12 +142,8 @@ class Data extends AbstractHelper
      */
     public function resizeImage($image, $width, $height)
     {
-        $mediaPath = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA);
-        $mediaUrl = $this->_storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
-
-        $imagePath = $mediaPath->getAbsolutePath($this->uploadDirectory) . DIRECTORY_SEPARATOR . $image;
-
-        $imageResizedPath = $mediaPath->getAbsolutePath($this->uploadDirectory . '/resized/' . $width . '/') . $image;
+        $imagePath = $this->getUploadDirectoryPath() . $image;
+        $imageResizedPath = $this->getUploadDirectoryPath() . '/resized/' . $image;
 
         $imageResize = $this->_adapterFactory->create();
 
@@ -131,7 +155,7 @@ class Data extends AbstractHelper
         $imageResize->resize($width, $height);
         $imageResize->save($imageResizedPath);
 
-        $imageResizedUrl = $mediaUrl . $this->uploadDirectory . '/resized/' . $width . '/' . $image;
+        $imageResizedUrl = $this->getUploadDirectoryUrl() . '/resized/' . $image;
 
         return $imageResizedUrl;
     }

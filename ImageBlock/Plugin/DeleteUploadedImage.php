@@ -14,14 +14,19 @@ class DeleteUploadedImage
      */
     protected $_mediaDirectory;
 
+    protected $_helper;
+
     /**
      * DeleteUploadedImage constructor.
      * @param Filesystem $filesystem
      * @throws \Magento\Framework\Exception\FileSystemException
      */
-    public function __construct(Filesystem $filesystem)
-    {
+    public function __construct(
+        Filesystem $filesystem,
+        Data $helper
+    ) {
         $this->_mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
+        $this->_helper = $helper;
     }
 
     /**
@@ -38,6 +43,10 @@ class DeleteUploadedImage
 
         if ($deleteFlag) {
             $this->_mediaDirectory->delete($uploadDirectory . DIRECTORY_SEPARATOR . $value['value']);
+
+            if ($this->_helper->uploadDirectory == $uploadDirectory) {
+                $this->_mediaDirectory->delete($uploadDirectory . '/resized/' . $value['value']);
+            }
         }
     }
 }
