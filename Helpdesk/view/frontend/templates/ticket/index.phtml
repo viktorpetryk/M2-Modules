@@ -1,0 +1,53 @@
+<?php $tickets = $block->getTickets(); ?>
+
+<form id="form-validate" action="<?= $block->getUrl('petryk_helpdesk/ticket/save'); ?>" method="post">
+    <fieldset class="fieldset">
+        <?= $block->getBlockHtml('formkey'); ?>
+
+        <div class="field title required">
+            <label class="label" for="title"><span><?= __('Title'); ?></span></label>
+            <div class="control">
+                <input id="title" type="text" name="title" data-validate="{required:true}" value=""
+                       placeholder="<?= __('Something descriptive'); ?>">
+            </div>
+        </div>
+        <div class="field severity">
+            <label class="label" for="severity"><span><?= __('Severity'); ?></span></label>
+            <div class="control">
+                <select name="severity">
+                    <?php foreach ($block->getSeverities() as $value => $name) : ?>
+                        <option value="<?= $value; ?>"><?= $this->escapeHtml($name); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="action save primary">
+            <span><?= __('Submit Ticket'); ?></span>
+        </button>
+    </fieldset>
+</form>
+
+<script>
+    require([
+        'jquery',
+        'mage/mage'
+    ], function ($) {
+        var dataForm = $('#form-validate');
+        dataForm.mage('validation', {});
+    });
+</script>
+
+<?php if ($tickets->count()) : ?>
+    <table class="data-grid">
+        <?php foreach ($tickets as $ticket) : ?>
+            <tr>
+                <td><?= $ticket->getId(); ?></td>
+                <td><?= $block->escapeHtml($ticket->getTitle()); ?></td>
+                <td><?= $ticket->getCreatedAt(); ?></td>
+                <td><?= $ticket->getSeverityAsLabel(); ?></td>
+                <td><?= $ticket->getStatusAsLabel(); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
