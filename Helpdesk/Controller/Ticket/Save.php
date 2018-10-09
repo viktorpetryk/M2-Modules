@@ -26,7 +26,7 @@ class Save extends Ticket
      */
     protected $ticketFactory;
 
-    
+
     public function __construct(
         Context $context,
         Session $customerSession,
@@ -39,8 +39,7 @@ class Save extends Ticket
         parent::__construct($context, $customerSession);
     }
 
-    public
-    function execute()
+    public function execute()
     {
         $resultRedirect = $this->resultRedirectFactory->create();
 
@@ -52,7 +51,6 @@ class Save extends Ticket
         $severity = $this->getRequest()->getParam('severity');
 
         try {
-            /* Save ticket */
             $ticket = $this->ticketFactory->create();
             $ticket->setCustomerId($this->customerSession->getCustomerId());
             $ticket->setTitle($title);

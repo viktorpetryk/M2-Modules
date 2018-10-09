@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Petryk_DeleteLogger::logger" title="Delete Logger" module="Petryk_DeleteLogger" sortOrder="50"
+             resource="Petryk_DeleteLogger::logger"/>
+        <add id="Petryk_DeleteLogger::manage_logs" title="Manage Logs" module="Petryk_DeleteLogger" sortOrder="10"
+             parent="Petryk_DeleteLogger::logger" action="petryk_deletelogger/index/index"
+             resource="Petryk_DeleteLogger::manage_logs"/>
+    </menu>
+</config>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Petryk_DeleteLogger::logger" title="Delete Logger" sortOrder="10">
+                    <resource id="Petryk_DeleteLogger::manage_logs" title="Manage Logs" sortOrder="0"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
