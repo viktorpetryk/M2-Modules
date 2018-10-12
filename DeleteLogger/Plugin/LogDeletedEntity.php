@@ -69,5 +69,7 @@ class LogDeletedEntity
         } catch (\Exception $exception) {
             $this->messageManager->addErrorMessage(__('An error occurred during log saving.'));
         }
+
+        $this->messageManager->addNoticeMessage(__('Your action is logged.'));
     }
 }
