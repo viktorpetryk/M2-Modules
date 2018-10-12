@@ -3,7 +3,6 @@
 namespace Petryk\DeleteLogger\Model\Log\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
-use Magento\User\Model\UserFactory;
 use Petryk\DeleteLogger\Model\Log;
 
 class EntityType implements OptionSourceInterface
@@ -16,12 +15,9 @@ class EntityType implements OptionSourceInterface
     /**
      * EntityType constructor.
      * @param Log $log
-     * @param UserFactory $userFactory
      */
-    public function __construct(
-        Log $log,
-        UserFactory $userFactory
-    ) {
+    public function __construct(Log $log)
+    {
         $this->log = $log;
     }
 

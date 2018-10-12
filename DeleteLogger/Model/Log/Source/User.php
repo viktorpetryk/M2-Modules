@@ -3,29 +3,28 @@
 namespace Petryk\DeleteLogger\Model\Log\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
-use Petryk\DeleteLogger\Model\Log;
+use Magento\User\Model\UserFactory;
 
 class User implements OptionSourceInterface
 {
-    /**
-     * @var Log
-     */
-    protected $log;
+    protected $userFactory;
 
-    public function __construct(Log $log)
+    public function __construct(UserFactory $userFactory)
     {
-        $this->log = $log;
+        $this->userFactory = $userFactory;
     }
 
     public function toOptionArray()
     {
-        $availableOptions = $this->log->getUsers();
+        $userCollection = $this->userFactory->create()->getCollection();
+        $usersData = $userCollection->load()->getData();
+
         $options = [];
 
-        foreach ($availableOptions as $key => $value) {
+        foreach ($usersData as $user) {
             $options[] = [
-                'label' => $value,
-                'value' => $key,
+                'label' => $user['firstname'] . ' ' . $user['lastname'],
+                'value' => $user['user_id'],
             ];
         }
 

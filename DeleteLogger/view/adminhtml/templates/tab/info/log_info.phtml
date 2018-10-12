@@ -1,0 +1,23 @@
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?= $block->escapeHtml(__('Info')) ?></span>
+    </div>
+    <table class="admin__table-secondary">
+        <tbody>
+        <?= $block->getChildHtml() ?>
+        <tr>
+            <th><?= $block->escapeHtml(__('Entity Type:')) ?></th>
+            <td><?= $block->escapeHtml($block->getEntityType()) ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('User Name:')) ?></th>
+            <td><?= $block->escapeHtml($block->getUserName()) ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Deleted At:')) ?></th>
+            <td><?= $block->escapeHtml($block->getDeletedAt()) ?></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

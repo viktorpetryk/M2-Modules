@@ -5,13 +5,17 @@
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">petryk_deletelogger_log_form.log_form_data_source</item>
         </item>
-        <item name="label" xsi:type="string" translate="true">General Information</item>
-        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="label" xsi:type="string" translate="true">Log Information</item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
     </argument>
     <settings>
         <buttons>
             <button name="back" class="Magento\Cms\Block\Adminhtml\Block\Edit\BackButton"/>
         </buttons>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
         <namespace>petryk_deletelogger_log_form</namespace>
         <dataScope>data</dataScope>
         <deps>
@@ -34,10 +38,32 @@
             </settings>
         </dataProvider>
     </dataSource>
-    <fieldset name="general">
+    <htmlContent name="petryk_deletelogger_tab_info_content">
+        <block class="Petryk\DeleteLogger\Block\Adminhtml\Edit\Tab\Info" name="petryk_deletelogger_tab_info_content"
+               template="Petryk_DeleteLogger::tab/info.phtml">
+            <arguments>
+                <argument name="sort_order" xsi:type="number">10</argument>
+                <argument name="tab_label" xsi:type="string" translate="true">Info</argument>
+            </arguments>
+            <block class="Petryk\DeleteLogger\Block\Adminhtml\Edit\Tab\Info\LogInfo" name="log_info"
+                   template="Petryk_DeleteLogger::tab/info/log_info.phtml"/>
+        </block>
+    </htmlContent>
+    <fieldset name="form">
         <settings>
-            <label/>
+            <label translate="true">Form</label>
         </settings>
+        <field name="log_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">log</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+            </settings>
+        </field>
         <field name="entity_type" sortOrder="20" formElement="select">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -48,6 +74,9 @@
                 <dataType>text</dataType>
                 <label translate="true">Entity Type</label>
                 <dataScope>entity_type</dataScope>
+                <imports>
+                    <link name="default">${ $.provider }:data.log.entity_type</link>
+                </imports>
             </settings>
             <formElements>
                 <select>
@@ -57,24 +86,46 @@
                 </select>
             </formElements>
         </field>
-        <!--<field name="user_id" sortOrder="30" formElement="select">-->
-            <!--<argument name="data" xsi:type="array">-->
-                <!--<item name="config" xsi:type="array">-->
-                    <!--<item name="source" xsi:type="string">log</item>-->
-                <!--</item>-->
-            <!--</argument>-->
-            <!--<settings>-->
-                <!--<dataType>text</dataType>-->
-                <!--<label translate="true">User Name</label>-->
-                <!--<dataScope>user_id</dataScope>-->
-            <!--</settings>-->
-            <!--<formElements>-->
-                <!--<select>-->
-                    <!--<settings>-->
-                        <!--<options class="Petryk\DeleteLogger\Ui\Component\Listing\Columns\User"/>-->
-                    <!--</settings>-->
-                <!--</select>-->
-            <!--</formElements>-->
-        <!--</field>-->
+        <field name="user_id" sortOrder="30" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">log</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">User Name</label>
+                <dataScope>user_id</dataScope>
+                <imports>
+                    <link name="default">${ $.provider }:data.log.user_id</link>
+                </imports>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Petryk\DeleteLogger\Model\Log\Source\User"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="deleted_at" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">log</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-date" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Deleted At</label>
+                <dataScope>deleted_at</dataScope>
+                <imports>
+                    <link name="default">${ $.provider }:data.log.deleted_at</link>
+                </imports>
+            </settings>
+        </field>
     </fieldset>
 </form>

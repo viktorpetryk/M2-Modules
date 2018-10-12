@@ -20,6 +20,9 @@ class LogDeletedEntity
      */
     protected $dateTime;
 
+    /**
+     * @var Model\LogFactory
+     */
     protected $logFactory;
 
     /**

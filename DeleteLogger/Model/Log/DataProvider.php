@@ -18,6 +18,16 @@ class DataProvider extends AbstractDataProvider
      */
     protected $dataPersistor;
 
+    /**
+     * DataProvider constructor.
+     * @param string $name
+     * @param string $primaryFieldName
+     * @param string $requestFieldName
+     * @param DataPersistorInterface $dataPersistor
+     * @param CollectionFactory $collectionFactory
+     * @param array $meta
+     * @param array $data
+     */
     public function __construct(
         string $name,
         string $primaryFieldName,
@@ -32,6 +42,9 @@ class DataProvider extends AbstractDataProvider
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
         if (isset($this->loadedData)) {
@@ -40,18 +53,8 @@ class DataProvider extends AbstractDataProvider
 
         $items = $this->collection->getItems();
 
-        /** @var \Petryk\DeleteLogger\Model\Log $log */
         foreach ($items as $log) {
-            $this->loadedData[$log->getId()] = $log->getData();
-        }
-
-        $data = $this->dataPersistor->get('petryk_deletelogger_log');
-
-        if (!empty($data)) {
-            $log = $this->collection->getNewEmptyItem();
-            $log->setData($data);
-            $this->loadedData[$log->getId()] = $log->getData();
-            $this->dataPersistor->clear('petryk_deletelogger_log');
+            $this->loadedData[$log->getId()]['log'] = $log->getData();
         }
 
         return $this->loadedData;
