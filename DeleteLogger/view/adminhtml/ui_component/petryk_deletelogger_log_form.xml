@@ -112,6 +112,11 @@
         <field name="deleted_at" formElement="date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
                     <item name="source" xsi:type="string">log</item>
                 </item>
             </argument>
