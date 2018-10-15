@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="DeleteLogger\Api\Data\LogSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="DeleteLogger\Api\Data\LogInterface" type="Petryk\DeleteLogger\Model\Log"/>
+    <preference for="DeleteLogger\Api\LogRepositoryInterface" type="Petryk\DeleteLogger\Model\LogRepository"/>
     <type name="Magento\Framework\EntityManager\EntityManager">
         <plugin name="Petryk_DeleteLogger_Plugin" type="Petryk\DeleteLogger\Plugin\LogDeletedEntity" sortOrder="1"/>
     </type>

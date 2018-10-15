@@ -21,9 +21,12 @@ class EntityType implements OptionSourceInterface
         $this->log = $log;
     }
 
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
-        $availableOptions = $this->log->getEntityTypes();
+        $availableOptions = $this->log->getAvailableEntityTypes();
         $options = [];
 
         foreach ($availableOptions as $key => $value) {

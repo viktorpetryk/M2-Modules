@@ -6,11 +6,10 @@
             <item name="provider" xsi:type="string">petryk_deletelogger_log_form.log_form_data_source</item>
         </item>
         <item name="label" xsi:type="string" translate="true">Log Information</item>
-        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
     </argument>
     <settings>
         <buttons>
-            <button name="back" class="Magento\Cms\Block\Adminhtml\Block\Edit\BackButton"/>
+            <button name="back" class="Petryk\DeleteLogger\Block\Adminhtml\Edit\Button\BackButton"/>
         </buttons>
         <layout>
             <navContainerName>left</navContainerName>
@@ -28,9 +27,6 @@
                 <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
             </item>
         </argument>
-        <!--<settings>-->
-        <!--<submitUrl path="cms/block/save"/>-->
-        <!--</settings>-->
         <dataProvider class="Petryk\DeleteLogger\Model\Log\DataProvider" name="log_form_data_source">
             <settings>
                 <requestFieldName>log_id</requestFieldName>
@@ -112,11 +108,11 @@
         <field name="deleted_at" formElement="date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="options" xsi:type="array">
-                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
-                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
-                        <item name="showsTime" xsi:type="boolean">true</item>
-                    </item>
+                    <!--<item name="options" xsi:type="array">-->
+                    <!--<item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>-->
+                    <!--<item name="timeFormat" xsi:type="string">HH:mm:ss</item>-->
+                    <!--<item name="showsTime" xsi:type="boolean">true</item>-->
+                    <!--</item>-->
                     <item name="source" xsi:type="string">log</item>
                 </item>
             </argument>

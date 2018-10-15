@@ -15,7 +15,7 @@ class LogInfo extends Template
     protected $coreRegistry;
 
     /**
-     * @var
+     * @var DateTime\TimezoneInterface
      */
     protected $localeDate;
 
@@ -50,14 +50,20 @@ class LogInfo extends Template
         return $this->coreRegistry->registry('petryk_deletelogger_log');
     }
 
+    /**
+     * @return mixed
+     */
     public function getEntityType()
     {
         $entityType = $this->log->getEntityType();
-        $entityTypes = $this->log->getEntityTypes();
+        $availableEntityTypes = $this->log->getAvailableEntityTypes();
 
-        return $entityTypes[$entityType];
+        return $availableEntityTypes[$entityType];
     }
 
+    /**
+     * @return string
+     */
     public function getUserName()
     {
         $userId = $this->log->getUserId();
@@ -66,6 +72,9 @@ class LogInfo extends Template
         return $user['firstname'] . ' ' . $user['lastname'];
     }
 
+    /**
+     * @return string
+     */
     public function getDeletedAt()
     {
         $deletedAt = $this->log->getDeletedAt();

@@ -9,37 +9,46 @@ use Petryk\DeleteLogger\Model;
 
 class Edit extends Action
 {
+    /**
+     * @var PageFactory
+     */
     protected $resultPageFactory;
 
     /**
      * @var Registry
      */
-    protected $registry;
+    protected $coreRegistry;
 
     /**
-     * @var Model\LogFactory
+     * @var Model\LogRepository
      */
-    protected $logFactory;
+    protected $logRepository;
 
+    /**
+     * Edit constructor.
+     * @param Action\Context $context
+     * @param PageFactory $pageFactory
+     * @param Registry $registry
+     * @param Model\LogRepository $logRepository
+     */
     public function __construct(
         Action\Context $context,
         PageFactory $pageFactory,
         Registry $registry,
-        Model\LogFactory $logFactory
+        Model\LogRepository $logRepository
     ) {
         $this->resultPageFactory = $pageFactory;
-        $this->registry = $registry;
-        $this->logFactory = $logFactory;
+        $this->coreRegistry = $registry;
+        $this->logRepository = $logRepository;
         parent::__construct($context);
     }
 
     public function execute()
     {
         $logId = $this->getRequest()->getParam('log_id');
-        $log = $this->logFactory->create();
 
         if ($logId) {
-            $log->load($logId);
+            $log = $this->logRepository->getById($logId);
 
             if (!$log->getId()) {
                 $this->messageManager->addErrorMessage(__('This log no longer exists.'));
@@ -47,9 +56,9 @@ class Edit extends Action
 
                 return $resultRedirect->setPath('*/*/');
             }
-        }
 
-        $this->registry->register('petryk_deletelogger_log', $log);
+            $this->coreRegistry->register('petryk_deletelogger_log', $log);
+        }
 
         $resultPage = $this->resultPageFactory->create();
 
@@ -57,6 +66,5 @@ class Edit extends Action
         $resultPage->getConfig()->getTitle()->prepend('Log ' . $log->getId());
 
         return $resultPage;
-
     }
 }

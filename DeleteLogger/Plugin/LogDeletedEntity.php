@@ -26,6 +26,11 @@ class LogDeletedEntity
     protected $logFactory;
 
     /**
+     * @var Model\LogRepository
+     */
+    protected $logRepository;
+
+    /**
      * @var ManagerInterface
      */
     protected $messageManager;
@@ -41,11 +46,13 @@ class LogDeletedEntity
         Session $authSession,
         DateTime $dateTime,
         Model\LogFactory $logFactory,
+        Model\LogRepository $logRepository,
         ManagerInterface $messageManager
     ) {
         $this->authSession = $authSession;
         $this->dateTime = $dateTime;
         $this->logFactory = $logFactory;
+        $this->logRepository = $logRepository;
         $this->messageManager = $messageManager;
     }
 
@@ -60,12 +67,14 @@ class LogDeletedEntity
         $userId = $this->authSession->getUser()->getId();
         $deletedAt = $this->dateTime->formatDate(true);
 
+        /* @var Model\Log $log */
+        $log = $this->logFactory->create();
+        $log->setEntityType($entityType);
+        $log->setUserId($userId);
+        $log->setDeletedAt($deletedAt);
+
         try {
-            $log = $this->logFactory->create();
-            $log->setEntityType($entityType);
-            $log->setUserId($userId);
-            $log->setDeletedAt($deletedAt);
-            $log->save();
+            $this->logRepository->save($log);
         } catch (\Exception $exception) {
             $this->messageManager->addErrorMessage(__('An error occurred during log saving.'));
         }

@@ -8,12 +8,17 @@ use Magento\Ui\Component\Layout\Tabs\TabInterface;
 
 class Info extends Template implements TabInterface
 {
-
     /**
      * @var Registry
      */
     protected $coreRegistry;
 
+    /**
+     * Info constructor.
+     * @param Template\Context $context
+     * @param Registry $registry
+     * @param array $data
+     */
     public function __construct(
         Template\Context $context,
         Registry $registry,
@@ -26,7 +31,7 @@ class Info extends Template implements TabInterface
     /**
      * @return mixed
      */
-    public function getLogId()
+    public function getLog()
     {
         return $this->coreRegistry->registry('petryk_deletelogger_log');
     }
@@ -88,7 +93,7 @@ class Info extends Template implements TabInterface
      */
     public function canShowTab()
     {
-        if ($this->getLogId()) {
+        if ($this->getLog()) {
             return true;
         }
 
@@ -102,7 +107,7 @@ class Info extends Template implements TabInterface
      */
     public function isHidden()
     {
-        if ($this->getLogId()) {
+        if ($this->getLog()) {
             return true;
         }
 

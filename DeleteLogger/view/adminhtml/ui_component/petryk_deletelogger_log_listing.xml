@@ -12,7 +12,7 @@
         </item>
         <item name="spinner" xsi:type="string">petryk_deletelogger_log_columns</item>
         <item name="buttons" xsi:type="array">
-            <item name="back" xsi:type="string">Magento\Cms\Block\Adminhtml\Block\Edit\BackButton</item>
+            <item name="back" xsi:type="string">Petryk\DeleteLogger\Block\Adminhtml\Edit\Button\BackButton</item>
         </item>
     </argument>
     <dataSource name="petryk_deletelogger_log_listing_data_source">
@@ -45,38 +45,25 @@
         <filterSearch name="fulltext"/>
         <filters name="listing_filters"/>
         <massaction name="listing_massaction">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
-                </item>
-            </argument>
             <action name="delete">
-                <argument name="data" xsi:type="array">
-                    <item name="config" xsi:type="array">
-                        <item name="type" xsi:type="string">delete</item>
-                        <item name="label" xsi:type="string" translate="true">Delete</item>
-                        <item name="url" xsi:type="url" path="petryk_deletelogger/index/massDelete"/>
-                        <item name="confirm" xsi:type="array">
-                            <item name="title" xsi:type="string" translate="true">Delete Log</item>
-                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete
-                                selected log(s)?
-                            </item>
-                        </item>
-                    </item>
-                </argument>
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected log(s)?</message>
+                        <title translate="true">Delete log(s)</title>
+                    </confirm>
+                    <url path="petryk_deletelogger/index/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
             </action>
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="petryk_deletelogger_log_columns">
         <selectionsColumn name="ids">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="resizeEnabled" xsi:type="boolean">false</item>
-                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
-                    <item name="indexField" xsi:type="string">log_id</item>
-                </item>
-            </argument>
+            <settings>
+                <indexField>log_id</indexField>
+            </settings>
         </selectionsColumn>
         <column name="log_id">
             <argument name="data" xsi:type="array">

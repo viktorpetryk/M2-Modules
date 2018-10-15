@@ -7,13 +7,23 @@ use Magento\User\Model\UserFactory;
 
 class User implements OptionSourceInterface
 {
+    /**
+     * @var UserFactory
+     */
     protected $userFactory;
 
+    /**
+     * User constructor.
+     * @param UserFactory $userFactory
+     */
     public function __construct(UserFactory $userFactory)
     {
         $this->userFactory = $userFactory;
     }
 
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         $userCollection = $this->userFactory->create()->getCollection();
